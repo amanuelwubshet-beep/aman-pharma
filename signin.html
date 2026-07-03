@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/jpeg" href="assets/aammaann.jpg">
+  <title>Aman Pharma - Sign In</title>
+  <style>
+    @font-face {
+      font-family: 'Equinox';
+      src: url('assets/Equinox-Bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    h1, h2 { font-family: 'Equinox', sans-serif; }
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f0f7f4;
+      --text: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --green: #059669;
+      --blue: #2563eb;
+      --green-light: rgba(5, 150, 105, 0.1);
+      --blue-light: rgba(37, 99, 235, 0.1);
+      --border: #e2e8f0;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --card-hover-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bg-image {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -2;
+      background: url('assets/bg-medical.png') center/cover no-repeat fixed;
+    }
+
+    .bg-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+      background: rgba(255,255,255,0.3);
+    }
+
+    .signin-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 420px;
+      max-width: 92vw;
+      box-shadow: var(--card-hover-shadow);
+      text-align: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .logo img {
+      height: 40px;
+      width: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .logo span {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .signin-card h2 {
+      font-size: 22px;
+      margin: 16px 0 4px;
+    }
+
+    .signin-card .sub {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .signin-card label {
+      display: block;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+
+    .signin-card label:first-of-type { margin-top: 0; }
+
+    .signin-card input[type="email"],
+    .signin-card input[type="tel"] {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+      margin-bottom: 4px;
+      transition: border-color 0.3s;
+    }
+
+    .signin-card input:focus { border-color: var(--green); }
+
+    .signin-card .file-upload {
+      position: relative;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 24px 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: var(--bg-alt);
+      margin-bottom: 4px;
+    }
+
+    .signin-card .file-upload:hover,
+    .signin-card .file-upload.dragover {
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+
+    .signin-card .file-upload.has-file {
+      border-style: solid;
+      border-color: var(--green);
+    }
+
+    .signin-card .file-upload input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .signin-card .file-upload .upload-icon {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .signin-card .file-upload .upload-text {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .signin-card .file-upload .upload-text strong {
+      color: var(--green);
+    }
+
+    .signin-card .file-upload .file-name {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .signin-card .file-upload.has-file .upload-text { display: none; }
+    .signin-card .file-upload.has-file .file-name { display: block; }
+
+    .signin-card .field-hint {
+      text-align: left;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .signin-card .signin-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: opacity 0.3s;
+    }
+
+    .signin-card .signin-btn:hover { opacity: 0.85; }
+    .signin-card .signin-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .signin-card .err {
+      display: none;
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-top: 16px;
+      padding: 10px 14px;
+      background: rgba(255,107,107,0.1);
+      border-radius: 8px;
+    }
+
+    .signin-card .success {
+      display: none;
+      color: var(--green);
+      font-size: 13px;
+      margin-top: 16px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-radius: 8px;
+    }
+
+    .signin-card .spinner {
+      display: none;
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .signin-card .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .signin-card .back-link:hover { color: var(--green); }
+
+    .signin-card .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--green-light);
+      border: 1px solid rgba(5, 150, 105, 0.3);
+      border-radius: 50px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .step { display: none; }
+    .step.active { display: block; }
+
+    @media (max-width: 768px) {
+      .signin-card { padding: 36px 28px; width: 100%; max-width: 94vw; }
+      .logo span { font-size: 20px; }
+      .signin-card h2 { font-size: 20px; }
+    }
+    @media (max-width: 480px) {
+      .signin-card { padding: 28px 20px; border-radius: 18px; }
+      .signin-card .sub { font-size: 13px; margin-bottom: 20px; }
+      .signin-card input[type="email"],
+      .signin-card input[type="tel"] { padding: 12px 14px; font-size: 14px; }
+      .signin-card .file-upload { padding: 18px 12px; }
+      .signin-card .file-upload .upload-icon { font-size: 28px; }
+      .signin-card .file-upload .upload-text { font-size: 12px; }
+      .signin-card .signin-btn { padding: 12px; font-size: 14px; margin-top: 20px; }
+      .logo img { height: 34px; width: 34px; }
+      .logo span { font-size: 18px; }
+    }
+    /* === SPEED BOOST === */
+    h1, h2, .navbar { animation-duration: 0.35s !important; }
+    .signin-card, .logo, .back-link, .signin-btn, .file-upload { will-change: transform, opacity; }
+    .signin-btn, .back-link, .email-input input, .file-upload { transition-duration: 0.12s !important; }
+  </style>
+</head>
+<body>
+  <div class="bg-image"></div>
+  <div class="bg-overlay"></div>
+
+  <div class="signin-card">
+    <div class="logo"><img src="assets/aammaann.jpg" alt="Aman Pharma"><span>Aman Pharma</span></div>
+    <div class="badge">Customer Sign In</div>
+    <h2>Welcome</h2>
+    <p class="sub">Enter your details and upload your EFDA license to access the store.</p>
+
+    <!-- Step 1: Email -->
+    <div class="step active" id="stepEmail">
+      <form id="emailForm" novalidate>
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+        <div class="field-hint">Enter your email to get started</div>
+        <button type="submit" class="signin-btn" id="emailBtn">
+          <span id="emailBtnText">Continue</span>
+          <div class="spinner" id="emailBtnSpinner"></div>
+        </button>
+      </form>
+    </div>
+
+    <!-- Step 2: Sign Up (new user) -->
+    <div class="step" id="stepSignup">
+      <form id="signupForm" novalidate>
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="+251 9X XXX XXXX" required autocomplete="tel">
+        <div class="field-hint">Your contact number</div>
+
+        <label>EFDA License File</label>
+        <div class="file-upload" id="fileUpload">
+          <input type="file" id="efdaLicense" accept="image/jpeg,image/png,image/gif,image/webp,application/pdf,.pdf" required>
+          <div class="upload-icon">&#128196;</div>
+          <div class="upload-text">Drop your EFDA license here or <strong>browse</strong></div>
+          <div class="file-name" id="fileName"></div>
+        </div>
+        <div class="field-hint">Accepted: JPG, PNG, GIF, WebP, PDF (max 5MB)</div>
+
+        <button type="submit" class="signin-btn" id="signupBtn">
+          <span id="signupBtnText">Submit for Approval</span>
+          <div class="spinner" id="signupBtnSpinner"></div>
+        </button>
+      </form>
+      <a href="#" class="back-link" onclick="resetToStep1()">&larr; Use a different email</a>
+    </div>
+
+    <!-- Step 2: Pending / Rejected message -->
+    <div class="step" id="stepMessage">
+      <div id="statusIcon" style="font-size:48px;margin-bottom:12px"></div>
+      <h2 id="statusTitle"></h2>
+      <p class="sub" id="statusMessage"></p>
+      <a href="#" class="back-link" onclick="resetToStep1()">&larr; Use a different email</a>
+    </div>
+
+    <div class="err" id="errorMsg"></div>
+    <div class="success" id="successMsg"></div>
+
+    <a href="store.html" class="back-link" id="storeLink" style="display:none">&larr; Back to Store</a>
+  </div>
+
+  <script>
+    if (location.protocol === 'file:') {
+      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:40px;font-family:sans-serif"><p>Please open through the server: <code>http://localhost:3001/signin.html</code></p></div>';
+      throw new Error('Must be served via HTTP');
+    }
+
+    const API = '/api';
+    const errorEl = document.getElementById('errorMsg');
+    const successEl = document.getElementById('successMsg');
+    let approvalPollTimer = null;
+    let pendingEmail = null;
+    try {
+      const signinChannel = new BroadcastChannel('aman_auth');
+      signinChannel.addEventListener('message', async (e) => {
+        if (e.data.type === 'user-approved' && pendingEmail) {
+          if (approvalPollTimer) { clearInterval(approvalPollTimer); approvalPollTimer = null; }
+          try {
+            const loginRes = await fetch(API + '/auth/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: pendingEmail })
+            });
+            const loginData = await loginRes.json();
+            if (loginData.success) {
+              localStorage.setItem('amanLoginTimestamp', String(Date.now()));
+              localStorage.setItem('amanUser', JSON.stringify(loginData.user));
+              window.location.href = 'store.html';
+            }
+          } catch (_) {}
+        }
+      });
+    } catch (_) {}
+
+    function startApprovalPoll(email) {
+      if (approvalPollTimer) clearInterval(approvalPollTimer);
+      approvalPollTimer = setInterval(async () => {
+        try {
+          const res = await fetch(API + '/auth/check', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+          const data = await res.json();
+          if (data.status === 'approved') {
+            clearInterval(approvalPollTimer);
+            approvalPollTimer = null;
+            const loginRes = await fetch(API + '/auth/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
+            });
+            const loginData = await loginRes.json();
+            if (loginData.success) {
+              localStorage.setItem('amanLoginTimestamp', String(Date.now()));
+              localStorage.setItem('amanUser', JSON.stringify(loginData.user));
+              window.location.href = 'store.html';
+            }
+          } else if (data.status === 'rejected') {
+            clearInterval(approvalPollTimer);
+            approvalPollTimer = null;
+            document.getElementById('statusIcon').textContent = '&#10060;';
+            document.getElementById('statusTitle').textContent = 'Account Rejected';
+            document.getElementById('statusMessage').textContent = 'Your account has been rejected. Please contact support for more information.';
+          }
+        } catch (e) {
+          // silently retry on next poll
+        }
+      }, 2000);
+    }
+
+    function showStep(id) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function resetToStep1() {
+      if (approvalPollTimer) { clearInterval(approvalPollTimer); approvalPollTimer = null; }
+      document.getElementById('email').value = '';
+      showStep('stepEmail');
+      document.getElementById('storeLink').style.display = 'none';
+    }
+
+    // File upload UI
+    const fileInput = document.getElementById('efdaLicense');
+    const fileUpload = document.getElementById('fileUpload');
+    const fileName = document.getElementById('fileName');
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        fileUpload.classList.add('has-file');
+        fileName.textContent = fileInput.files[0].name;
+      } else {
+        fileUpload.classList.remove('has-file');
+      }
+    });
+
+    fileUpload.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fileUpload.classList.add('dragover');
+    });
+
+    fileUpload.addEventListener('dragleave', () => {
+      fileUpload.classList.remove('dragover');
+    });
+
+    fileUpload.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileUpload.classList.remove('dragover');
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        fileUpload.classList.add('has-file');
+        fileName.textContent = e.dataTransfer.files[0].name;
+      }
+    });
+
+    // Step 1: Email check
+    document.getElementById('emailForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const btn = document.getElementById('emailBtn');
+      const btnText = document.getElementById('emailBtnText');
+      const btnSpinner = document.getElementById('emailBtnSpinner');
+
+      errorEl.style.display = 'none';
+      successEl.style.display = 'none';
+
+      if (!email) {
+        errorEl.textContent = 'Please enter your email';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'block';
+
+      try {
+        const res = await fetch(API + '/auth/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+
+        if (!data.exists) {
+          // New user — show signup form
+          document.getElementById('email').dataset.email = email;
+          showStep('stepSignup');
+        } else if (data.status === 'pending') {
+          showStep('stepMessage');
+          document.getElementById('statusIcon').textContent = '&#9203;';
+          document.getElementById('statusTitle').textContent = 'Pending Approval';
+          document.getElementById('statusMessage').textContent = 'Your account is pending admin approval. Please wait — we\'ll auto-detect when you\'re approved.';
+          pendingEmail = email;
+          startApprovalPoll(email);
+        } else if (data.status === 'approved') {
+          // Already approved — log them in
+          const loginRes = await fetch(API + '/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+          const loginData = await loginRes.json();
+          if (loginData.success) {
+            localStorage.setItem('amanLoginTimestamp', String(Date.now()));
+            localStorage.setItem('amanUser', JSON.stringify(loginData.user));
+            window.location.href = 'store.html';
+          } else {
+            throw new Error(loginData.error || 'Login failed');
+          }
+        } else if (data.status === 'rejected') {
+          showStep('stepMessage');
+          document.getElementById('statusIcon').textContent = '&#10060;';
+          document.getElementById('statusTitle').textContent = 'Account Rejected';
+          document.getElementById('statusMessage').textContent = 'Your account has been rejected. Please contact support for more information.';
+        }
+      } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = 'block';
+      }
+
+      btn.disabled = false;
+      btnText.style.display = 'inline';
+      btnSpinner.style.display = 'none';
+    });
+
+    // Step 2: Sign up form submit
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const file = fileInput.files[0];
+      const btn = document.getElementById('signupBtn');
+      const btnText = document.getElementById('signupBtnText');
+      const btnSpinner = document.getElementById('signupBtnSpinner');
+
+      errorEl.style.display = 'none';
+      successEl.style.display = 'none';
+
+      if (!email || !phone || !file) {
+        errorEl.textContent = 'All fields are required';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'block';
+
+      try {
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('efda_license', file);
+
+        const res = await fetch(API + '/auth/signin', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Sign in failed');
+        }
+
+        showStep('stepMessage');
+        document.getElementById('statusIcon').textContent = '&#9203;';
+        document.getElementById('statusTitle').textContent = 'Submitted for Approval';
+        document.getElementById('statusMessage').textContent = 'Your sign-up request has been submitted. We\'ll auto-detect when an admin approves your account.';
+        pendingEmail = email;
+        startApprovalPoll(email);
+      } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = 'block';
+        btn.disabled = false;
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "aman-pharma-backend",
+  "version": "2.0.0",
+  "description": "Aman Pharma backend - medical supply e-commerce",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "init-db": "node init-db.js",
+    "seed": "node init-db.js",
+    "reset": "rm -f store.db && node init-db.js",
+    "test": "jest --forceExit --detectOpenHandles",
+    "backup": "node scripts/backup.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@telebirrh5/core": "^0.1.2",
+    "compression": "^1.8.1",
+    "cors": "^2.8.6",
+    "csv-parse": "^7.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.2",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
+    "multer": "^2.2.0",
+    "nodemailer": "^8.0.11",
+    "sql.js": "^1.14.1",
+    "uuid": "^14.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}

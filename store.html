@@ -640,12 +640,41 @@
     }
 
     @media (max-width: 480px) {
-      .hero h1 { font-size: 28px; }
-      .hero { padding: 100px 16px 40px; }
-      section { padding: 40px 16px; }
-      .section-title { font-size: 24px; }
+      .navbar { padding: 10px 12px; }
+      .logo span { font-size: 16px; }
+      .logo img { height: 28px; width: 28px; }
+      .hero { padding: 80px 12px 30px; min-height: auto; }
+      .hero h1 { font-size: 24px; }
+      .hero p { font-size: 14px; margin-bottom: 24px; }
+      .hero-badge { font-size: 9px; padding: 4px 12px; margin-bottom: 20px; }
+      .hero-actions .btn { padding: 10px 20px; font-size: 12px; }
+      .btn { padding: 10px 20px; font-size: 12px; }
+      section { padding: 30px 12px; }
+      .section-title { font-size: 20px; }
+      .section-subtitle { font-size: 13px; margin-bottom: 24px; }
+      .about-text h2 { font-size: 18px; }
+      .about-content { gap: 24px; }
+      .about-stats { gap: 8px; }
+      .stat-card { padding: 14px 10px; border-radius: 12px; }
+      .stat-number { font-size: 20px; }
+      .stat-label { font-size: 11px; }
+      .cards-grid { gap: 12px; }
+      .card-3d { padding: 18px 14px; border-radius: 14px; }
+      .card-3d h3 { font-size: 14px; }
+      .card-3d p { font-size: 12px; }
+      .card-icon { width: 40px; height: 40px; font-size: 18px; margin-bottom: 14px; border-radius: 12px; }
+      .feature-item { padding: 14px; gap: 12px; border-radius: 12px; }
+      .feature-icon { width: 34px; height: 34px; font-size: 16px; }
+      .feature-item h4 { font-size: 13px; }
+      .feature-item p { font-size: 12px; }
+      .contact-wrapper { padding: 20px 14px; border-radius: 14px; gap: 24px; }
+      .contact-info h3 { font-size: 18px; }
+      .contact-detail { font-size: 13px; gap: 10px; }
+      .contact-detail .icon { width: 36px; height: 36px; font-size: 15px; }
+      .contact-form input, .contact-form textarea { padding: 10px 12px; font-size: 13px; }
+      footer { padding: 16px 12px; font-size: 10px; }
+      .about-stats { grid-template-columns: 1fr; }
     }
-    /* Login Box */
     .login-box {
       min-height: 100vh;
       display: flex;
@@ -1324,26 +1353,29 @@
       .store-section { padding: 100px 16px 40px; }
     }
     @media (max-width: 480px) {
-      .store-header h2 { font-size: 20px; }
-      .store-actions { gap: 8px; }
-      .cart-btn { padding: 10px 16px; font-size: 12px; }
-      .logout-btn { padding: 10px 14px; font-size: 12px; }
-      .products-grid { gap: 16px; }
-      .product-card { padding: 14px; border-radius: 16px; }
-      .product-img { height: 120px; font-size: 32px; }
-      .product-card h4 { font-size: 14px; }
-      .product-card .price { font-size: 16px; }
-      .product-card .desc { font-size: 12px; }
-      .add-to-cart { padding: 7px; font-size: 11px; }
-      .category-filters button { font-size: 11px; padding: 6px 12px; }
-      .payment-page { padding: 50px 12px 24px; }
-      .page-summary h3, .page-customer h3 { font-size: 16px; }
-      .page-customer input { padding: 10px 14px; font-size: 13px; }
-      .payment-steps .step { font-size: 10px; }
-      nav.navbar { padding: 14px 16px; }
-      .logo span { font-size: 18px; }
-      .logo img { height: 32px; width: 32px; }
-      section.store-section { padding: 80px 12px 30px; }
+      .store-header h2 { font-size: 18px; }
+      .store-actions { gap: 6px; flex-wrap: wrap; }
+      .cart-btn { padding: 8px 14px; font-size: 11px; }
+      .logout-btn { padding: 8px 12px; font-size: 11px; }
+      .products-grid { gap: 12px; }
+      .product-card { padding: 12px; border-radius: 14px; }
+      .product-img { height: 100px; font-size: 28px; }
+      .product-card h4 { font-size: 13px; }
+      .product-card .price { font-size: 15px; }
+      .product-card .desc { font-size: 11px; }
+      .add-to-cart { padding: 6px; font-size: 10px; }
+      .category-filters button { font-size: 10px; padding: 5px 10px; }
+      .search-bar input { padding: 10px 12px; font-size: 13px; }
+      .payment-page { padding: 40px 10px 20px; }
+      .payment-inner { gap: 16px; }
+      .page-summary, .page-customer { padding: 14px; border-radius: 12px; }
+      .page-summary h3, .page-customer h3 { font-size: 14px; }
+      .page-customer input { padding: 8px 12px; font-size: 12px; }
+      .payment-steps .step { font-size: 9px; padding: 6px 10px; }
+      section.store-section { padding: 70px 8px 24px; }
+      .cart-sidebar { padding: 16px; }
+      .cart-item { gap: 8px; padding: 10px 0; }
+      .cart-item img { width: 40px; height: 40px; }
     }
 
     /* Admin Panel */

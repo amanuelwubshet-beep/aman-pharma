@@ -640,10 +640,40 @@
     }
 
     @media (max-width: 480px) {
-      .hero h1 { font-size: 28px; }
-      .hero { padding: 100px 16px 40px; }
-      section { padding: 40px 16px; }
-      .section-title { font-size: 24px; }
+      .navbar { padding: 10px 12px; }
+      .logo span { font-size: 16px; }
+      .logo img { height: 28px; width: 28px; }
+      .hero { padding: 80px 12px 30px; min-height: auto; }
+      .hero h1 { font-size: 24px; }
+      .hero p { font-size: 14px; margin-bottom: 24px; }
+      .hero-badge { font-size: 9px; padding: 4px 12px; margin-bottom: 20px; }
+      .hero-actions .btn { padding: 10px 20px; font-size: 12px; }
+      .btn { padding: 10px 20px; font-size: 12px; }
+      section { padding: 30px 12px; }
+      .section-title { font-size: 20px; }
+      .section-subtitle { font-size: 13px; margin-bottom: 24px; }
+      .about-text h2 { font-size: 18px; }
+      .about-content { gap: 24px; }
+      .about-stats { gap: 8px; }
+      .stat-card { padding: 14px 10px; border-radius: 12px; }
+      .stat-number { font-size: 20px; }
+      .stat-label { font-size: 11px; }
+      .cards-grid { gap: 12px; }
+      .card-3d { padding: 18px 14px; border-radius: 14px; }
+      .card-3d h3 { font-size: 14px; }
+      .card-3d p { font-size: 12px; }
+      .card-icon { width: 40px; height: 40px; font-size: 18px; margin-bottom: 14px; border-radius: 12px; }
+      .feature-item { padding: 14px; gap: 12px; border-radius: 12px; }
+      .feature-icon { width: 34px; height: 34px; font-size: 16px; }
+      .feature-item h4 { font-size: 13px; }
+      .feature-item p { font-size: 12px; }
+      .contact-wrapper { padding: 20px 14px; border-radius: 14px; gap: 24px; }
+      .contact-info h3 { font-size: 18px; }
+      .contact-detail { font-size: 13px; gap: 10px; }
+      .contact-detail .icon { width: 36px; height: 36px; font-size: 15px; }
+      .contact-form input, .contact-form textarea { padding: 10px 12px; font-size: 13px; }
+      footer { padding: 16px 12px; font-size: 10px; }
+      .about-stats { grid-template-columns: 1fr; }
     }
     /* Login Page */
     .login-overlay {
@@ -1379,19 +1409,18 @@
       .admin-form .form-row { flex-direction: column; gap: 0; }
       .orders-table { font-size: 12px; }
       .orders-table th, .orders-table td { padding: 8px 8px; }
-      nav.navbar { padding: 14px 16px; }
-      .logo span { font-size: 18px; }
-      .logo img { height: 32px; width: 32px; }
       section.store-section { padding: 100px 16px 40px; }
     }
     @media (max-width: 480px) {
-      .store-header h2 { font-size: 20px; }
-      section.store-section { padding: 80px 10px 30px; }
-      .admin-form { padding: 16px; border-radius: 12px; }
-      .admin-tabs button { font-size: 11px; padding: 6px 12px; }
-      .orders-table { font-size: 11px; }
-      .orders-table th, .orders-table td { padding: 6px 6px; }
-      .btn-approve, .btn-reject { padding: 3px 10px; font-size: 10px; }
+      .store-header h2 { font-size: 18px; }
+      section.store-section { padding: 70px 8px 24px; }
+      .admin-form { padding: 12px; border-radius: 10px; }
+      .admin-tabs { gap: 4px; }
+      .admin-tabs button { font-size: 10px; padding: 5px 10px; white-space: nowrap; }
+      .orders-table { font-size: 10px; }
+      .orders-table th, .orders-table td { padding: 4px 4px; }
+      .orders-table { overflow-x: auto; display: block; }
+      .btn-approve, .btn-reject { padding: 2px 8px; font-size: 9px; }
     }
     .admin-form { overflow-x: auto; }
     /* === SPEED BOOST === */

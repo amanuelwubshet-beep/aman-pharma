@@ -60,14 +60,24 @@ const signinLimiter = rateLimit({
 });
 app.use('/api/auth/signin', signinLimiter);
 
-app.use('/api/auth', require('./routes/auth'));
+const adminLoginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many admin login attempts' },
+});
+app.use('/api/auth/admin-login', adminLoginLimiter);
+
+const { router: authRouter, adminRequired } = require('./routes/auth');
+app.use('/api/auth', authRouter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/products', require('./routes/products'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/payments', require('./routes/payments'));
-app.use('/api/icecat', require('./routes/icecat'));
-app.use('/api/cnet', require('./routes/cnet'));
+app.use('/api/icecat', adminRequired, require('./routes/icecat'));
+app.use('/api/cnet', adminRequired, require('./routes/cnet'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/contact', require('./routes/contact'));
 

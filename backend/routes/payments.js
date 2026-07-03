@@ -2,7 +2,7 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 const { getDb, markDirty } = require('../db');
 const telebirrService = require('../services/telebirr');
-const authMiddleware = require('../middleware/auth');
+const { adminRequired } = require('./auth');
 const { isValidEthiopianPhone } = require('../lib/validate');
 
 const router = express.Router();
@@ -138,7 +138,7 @@ router.get('/:ref/status', async (req, res) => {
   }
 });
 
-router.post('/telebirr/query-order', authMiddleware, async (req, res) => {
+router.post('/telebirr/query-order', adminRequired, async (req, res) => {
   try {
     const { fabricToken, prepayId, merchOrderId } = req.body;
     if (!fabricToken || (!prepayId && !merchOrderId)) {
@@ -151,7 +151,7 @@ router.post('/telebirr/query-order', authMiddleware, async (req, res) => {
   }
 });
 
-router.post('/telebirr/refund', authMiddleware, async (req, res) => {
+router.post('/telebirr/refund', adminRequired, async (req, res) => {
   try {
     const { fabricToken, refundAmount, paymentOrderId, merchOrderId, refundReason } = req.body;
     if (!fabricToken || !refundAmount || (!paymentOrderId && !merchOrderId)) {
@@ -164,7 +164,7 @@ router.post('/telebirr/refund', authMiddleware, async (req, res) => {
   }
 });
 
-router.get('/commissions', authMiddleware, async (req, res) => {
+router.get('/commissions', adminRequired, async (req, res) => {
   try {
     const db = await getDb();
     const result = db.exec(`SELECT * FROM commissions ORDER BY created_at DESC`);

@@ -1,4 +1,5 @@
 const express = require('express');
+const crypto = require('crypto');
 const multer = require('multer');
 const path = require('path');
 const { getDb, markDirty } = require('../db');
@@ -27,6 +28,29 @@ const upload = multer({
 
 const router = express.Router();
 
+const adminSessions = new Map();
+const SESSION_EXPIRY_MS = 24 * 60 * 60 * 1000;
+
+function generateToken() {
+  return crypto.randomBytes(32).toString('hex');
+}
+
+function createAdminSession() {
+  const token = generateToken();
+  adminSessions.set(token, { created: Date.now() });
+  return token;
+}
+
+function validateAdminSession(token) {
+  if (!token || !adminSessions.has(token)) return false;
+  const session = adminSessions.get(token);
+  if (Date.now() - session.created > SESSION_EXPIRY_MS) {
+    adminSessions.delete(token);
+    return false;
+  }
+  return true;
+}
+
 function getUserByEmail(db, email) {
   const stmt = db.prepare(`SELECT id, email, phone, efda_license, role, status, created_at FROM users WHERE email = ?`);
   stmt.bind([email]);
@@ -44,6 +68,14 @@ function formatUser(user) {
     status: user.status,
     created_at: user.created_at
   };
+}
+
+function adminRequired(req, res, next) {
+  const token = req.headers['x-admin-token'];
+  if (!validateAdminSession(token)) {
+    return res.status(401).json({ error: 'Unauthorized. Admin login required.' });
+  }
+  next();
 }
 
 router.post('/signin', upload.single('efda_license'), async (req, res) => {
@@ -124,10 +156,26 @@ router.post('/login', async (req, res) => {
 router.post('/admin-login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const adminUser = process.env.ADMIN_USERNAME || 'wubshet';
-    const adminPass = process.env.ADMIN_PASSWORD || 'amanuel@123';
-    if (username === adminUser && password === adminPass) {
-      res.json({ success: true });
+    if (!username || !password || typeof username !== 'string' || typeof password !== 'string') {
+      return res.status(400).json({ error: 'Username and password are required' });
+    }
+    if (username.length > 100 || password.length > 200) {
+      return res.status(400).json({ error: 'Invalid input' });
+    }
+    const adminUser = process.env.ADMIN_USERNAME;
+    const adminPass = process.env.ADMIN_PASSWORD;
+    if (!adminUser || !adminPass) {
+      return res.status(500).json({ error: 'Admin credentials not configured' });
+    }
+    const encodedUser = new TextEncoder().encode(adminUser);
+    const encodedPass = new TextEncoder().encode(adminPass);
+    const encodedInputUser = new TextEncoder().encode(username);
+    const encodedInputPass = new TextEncoder().encode(password);
+    const userMatch = encodedUser.length === encodedInputUser.length && crypto.timingSafeEqual(encodedUser, encodedInputUser);
+    const passMatch = encodedPass.length === encodedInputPass.length && crypto.timingSafeEqual(encodedPass, encodedInputPass);
+    if (userMatch && passMatch) {
+      const token = createAdminSession();
+      res.json({ success: true, token });
     } else {
       res.status(401).json({ error: 'Invalid username or password' });
     }
@@ -137,7 +185,22 @@ router.post('/admin-login', async (req, res) => {
   }
 });
 
-router.get('/users', async (req, res) => {
+router.post('/admin-verify', (req, res) => {
+  const token = req.headers['x-admin-token'];
+  if (validateAdminSession(token)) {
+    res.json({ valid: true });
+  } else {
+    res.json({ valid: false });
+  }
+});
+
+router.post('/admin-logout', (req, res) => {
+  const token = req.headers['x-admin-token'];
+  if (token) adminSessions.delete(token);
+  res.json({ success: true });
+});
+
+router.get('/users', adminRequired, async (req, res) => {
   try {
     const db = await getDb();
     const stmt = db.prepare(`SELECT id, email, phone, efda_license, role, status, created_at FROM users ORDER BY created_at DESC`);
@@ -152,7 +215,7 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.post('/users/:id/approve', async (req, res) => {
+router.post('/users/:id/approve', adminRequired, async (req, res) => {
   try {
     const db = await getDb();
     const id = Number(req.params.id);
@@ -169,7 +232,7 @@ router.post('/users/:id/approve', async (req, res) => {
   }
 });
 
-router.post('/users/:id/reject', async (req, res) => {
+router.post('/users/:id/reject', adminRequired, async (req, res) => {
   try {
     const db = await getDb();
     const id = Number(req.params.id);
@@ -186,4 +249,4 @@ router.post('/users/:id/reject', async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = { router, adminRequired };

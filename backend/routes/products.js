@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const { getDb, markDirty } = require('../db');
-const authMiddleware = require('../middleware/auth');
+const { adminRequired } = require('./auth');
 
 const UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
 const productStorage = multer.diskStorage({
@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', productUpload.single('image'), async (req, res) => {
+router.post('/', adminRequired, productUpload.single('image'), async (req, res) => {
   try {
     const { name, category, description } = req.body;
     const price = parseFloat(req.body.price);
@@ -72,7 +72,7 @@ router.post('/', productUpload.single('image'), async (req, res) => {
   }
 });
 
-router.put('/:id', authMiddleware, productUpload.single('image'), async (req, res) => {
+router.put('/:id', adminRequired, productUpload.single('image'), async (req, res) => {
   try {
     const { name, category, description } = req.body;
     const price = req.body.price != null ? parseFloat(req.body.price) : null;
@@ -102,7 +102,7 @@ router.put('/:id', authMiddleware, productUpload.single('image'), async (req, re
   }
 });
 
-router.delete('/:id', authMiddleware, async (req, res) => {
+router.delete('/:id', adminRequired, async (req, res) => {
   try {
     const db = await getDb();
     db.run(`DELETE FROM products WHERE id=?`, [req.params.id]);

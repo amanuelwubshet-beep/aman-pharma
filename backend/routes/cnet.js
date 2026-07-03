@@ -5,7 +5,6 @@ const rateLimit = require('express-rate-limit');
 const { parse } = require('csv-parse/sync');
 const { getDb, markDirty } = require('../db');
 const cnetService = require('../services/cnet');
-const authMiddleware = require('../middleware/auth');
 
 const upload = multer({
   dest: '/tmp/uploads/',

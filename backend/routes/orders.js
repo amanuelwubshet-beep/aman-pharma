@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const { getDb, markDirty } = require('../db');
-const authMiddleware = require('../middleware/auth');
+const { adminRequired } = require('./auth');
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ const orderLimiter = rateLimit({
   message: { error: 'Too many orders. Try again later.' },
 });
 
-router.get('/', authMiddleware, async (req, res) => {
+router.get('/', adminRequired, async (req, res) => {
   try {
     const db = await getDb();
     const result = db.exec(`SELECT * FROM orders ORDER BY created_at DESC`, []);
@@ -66,7 +66,7 @@ router.post('/', orderLimiter, async (req, res) => {
 
 const VALID_STATUSES = ['pending', 'paid', 'shipped', 'delivered', 'cancelled'];
 
-router.put('/:id/status', authMiddleware, async (req, res) => {
+router.put('/:id/status', adminRequired, async (req, res) => {
   try {
     const { status } = req.body;
     if (!status || !VALID_STATUSES.includes(status)) {

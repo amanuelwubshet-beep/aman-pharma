@@ -1436,6 +1436,92 @@
       border-radius: 8px;
     }
 
+    /* Admin login overlay (shown/hidden via JS) */
+    .admin-login-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+    }
+    .admin-login-overlay.active { display: flex !important; }
+    .admin-login-overlay .bg {
+      position: absolute; inset: 0;
+      background: var(--bg);
+    }
+    .admin-login-overlay .login-card {
+      position: relative;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px 36px;
+      width: 380px;
+      max-width: 90vw;
+      text-align: center;
+      box-shadow: var(--card-hover-shadow);
+    }
+    .admin-login-overlay .login-card h2 { font-size: 22px; margin: 0 0 4px; color: var(--text); }
+    .admin-login-overlay .login-card p { color: var(--text-secondary); font-size: 14px; margin: 0 0 24px; }
+    .admin-login-overlay .login-card input {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+      margin-bottom: 14px;
+    }
+    .admin-login-overlay .login-card input:focus { border-color: var(--green); }
+    .admin-login-overlay .login-card .login-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .admin-login-overlay .login-card .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .admin-login-overlay .login-card .login-btn:hover { opacity: 0.85; }
+    .admin-login-overlay .login-card .err {
+      display: none;
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      background: rgba(255,107,107,0.1);
+      border-radius: 8px;
+    }
+    .admin-login-overlay .login-card .brand {
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+    .admin-login-overlay .login-card .admin-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--green-light);
+      border: 1px solid rgba(5, 150, 105, 0.3);
+      border-radius: 50px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
     /* Admin responsive */
     @media (max-width: 768px) {
       .store-header { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -1508,12 +1594,28 @@
     <a href="store.html">Store</a>
   </div>
 
+  <!-- Admin Login Overlay -->
+  <div class="admin-login-overlay active" id="adminLoginOverlay">
+    <div class="bg"></div>
+    <div class="login-card">
+      <div class="brand">Aman Pharma</div>
+      <div class="admin-badge">Admin Panel</div>
+      <h2>Admin Login</h2>
+      <p>Enter your credentials to access the admin panel.</p>
+      <div class="err" id="adminLoginErr"></div>
+      <input type="text" id="adminUsername" placeholder="Username" autocomplete="username">
+      <input type="password" id="adminPassword" placeholder="Password" autocomplete="current-password">
+      <button class="login-btn" id="adminLoginBtn" onclick="adminLogin()">Sign In</button>
+    </div>
+  </div>
+
   <!-- Admin Section -->
-  <section class="store-section" id="storeSection" style="display:block;padding-top:120px">
+  <section class="store-section" id="storeSection" style="display:none;padding-top:120px">
     <div class="store-header">
       <h2 class="section-title" style="margin-bottom:0;text-align:left"><span>Admin</span> Panel</h2>
       <div class="store-actions">
         <a href="store.html" class="cart-btn" style="text-decoration:none">&#128722; Go to Store</a>
+        <button class="logout-btn" id="adminLogoutBtn" onclick="adminLogout()" style="display:none">&#128682; Sign Out</button>
       </div>
     </div>
 
@@ -1533,7 +1635,7 @@
         <div class="admin-form" style="max-width:100%;overflow-x:auto">
           <h3>User Management</h3>
           <div style="margin-bottom:16px">
-            <button class="btn-reject" onclick="(async()=>{if(!confirm('Delete ALL users from the database? This cannot be undone!'))return;try{let r=await fetch('/api/auth/logout-all',{method:'POST'});let d=await r.json();if(!d.success){alert('Server refused: '+(d.error||'rate limited'));return}if(d.deleted){alert('All users deleted.');loadUsers()}else{alert('Users logged out but delete failed.')}}catch(e){alert('Failed: '+e.message)}})()" style="padding:8px 20px;font-size:13px">&#128683; Delete All Users</button>
+            <button class="btn-reject" onclick="(async()=>{if(!confirm('Delete ALL users from the database? This cannot be undone!'))return;try{let r=await fetch('/api/auth/logout-all',{method:'POST',headers:{'x-admin-token':getAdminToken()||''}});let d=await r.json();if(!d.success){alert('Server refused: '+(d.error||'rate limited'));return}if(d.deleted){alert('All users deleted.');loadUsers()}else{alert('Users logged out but delete failed.')}}catch(e){alert('Failed: '+e.message)}})()" style="padding:8px 20px;font-size:13px">&#128683; Delete All Users</button>
           </div>
           <div id="usersList"><p style="color:var(--text-muted)">Loading users...</p></div>
         </div>
@@ -1659,9 +1761,91 @@
       try { if (adminBroadcast) adminBroadcast.postMessage({ type, email, userId }); } catch (_) {}
     }
 
+    // ==================== ADMIN AUTH ====================
+    function getAdminToken() { return localStorage.getItem('amanAdminToken'); }
+    function setAdminToken(t) { if (t) localStorage.setItem('amanAdminToken', t); else localStorage.removeItem('amanAdminToken'); }
+
+    async function adminLogin() {
+      const btn = document.getElementById('adminLoginBtn');
+      const err = document.getElementById('adminLoginErr');
+      const username = document.getElementById('adminUsername').value.trim();
+      const password = document.getElementById('adminPassword').value;
+      if (!username || !password) {
+        err.style.display = 'block'; err.textContent = 'Please enter username and password';
+        return;
+      }
+      btn.disabled = true; btn.textContent = 'Signing in...';
+      err.style.display = 'none';
+      try {
+        const res = await fetch(API + '/auth/admin-login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login failed');
+        setAdminToken(data.token);
+        document.getElementById('adminLoginOverlay').classList.remove('active');
+        document.getElementById('storeSection').style.display = 'block';
+        document.getElementById('adminLogoutBtn').style.display = 'inline-block';
+        loadUsers();
+      } catch (e) {
+        err.style.display = 'block';
+        err.textContent = e.message || 'Network error';
+      }
+      btn.disabled = false; btn.textContent = 'Sign In';
+    }
+
+    async function adminLogout() {
+      const token = getAdminToken();
+      if (token) {
+        try { await fetch(API + '/auth/admin-logout', { method: 'POST', headers: { 'x-admin-token': token } }); } catch (_) {}
+      }
+      setAdminToken(null);
+      document.getElementById('storeSection').style.display = 'none';
+      document.getElementById('adminLogoutBtn').style.display = 'none';
+      document.getElementById('adminLoginOverlay').classList.add('active');
+      document.getElementById('adminUsername').value = '';
+      document.getElementById('adminPassword').value = '';
+    }
+
+    async function checkAdminAuth() {
+      const token = getAdminToken();
+      if (!token) {
+        document.getElementById('adminLoginOverlay').classList.add('active');
+        document.getElementById('storeSection').style.display = 'none';
+        return;
+      }
+      try {
+        const res = await fetch(API + '/auth/admin-verify', {
+          method: 'POST',
+          headers: { 'x-admin-token': token }
+        });
+        const data = await res.json();
+        if (data.valid) {
+          document.getElementById('adminLoginOverlay').classList.remove('active');
+          document.getElementById('storeSection').style.display = 'block';
+          document.getElementById('adminLogoutBtn').style.display = 'inline-block';
+        } else {
+          setAdminToken(null);
+          document.getElementById('adminLoginOverlay').classList.add('active');
+          document.getElementById('storeSection').style.display = 'none';
+        }
+      } catch (_) {
+        document.getElementById('adminLoginOverlay').classList.add('active');
+        document.getElementById('storeSection').style.display = 'none';
+      }
+    }
+
+    document.getElementById('adminPassword').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') adminLogin();
+    });
+
     // ==================== API HELPERS ====================
     async function apiFetch(path, opts = {}) {
+      const token = getAdminToken();
       const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['x-admin-token'] = token;
       const res = await fetch(API + path, { ...opts, headers });
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: res.statusText }));
@@ -1719,7 +1903,7 @@
         fd.append('stock', String(stock));
         fd.append('description', description || '');
         if (imageInput.files && imageInput.files[0]) fd.append('image', imageInput.files[0]);
-        const res = await fetch(API + '/products', { method: 'POST', body: fd });
+        const res = await fetch(API + '/products', { method: 'POST', body: fd, headers: { 'x-admin-token': getAdminToken() || '' } });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Failed to add product');
         status.className = 'status-msg success';
@@ -1761,7 +1945,7 @@
       try {
         const form = new FormData();
         form.append('file', fileInput.files[0]);
-        const res = await fetch('/api/cnet/import-csv', { method: 'POST', body: form });
+        const res = await fetch('/api/cnet/import-csv', { method: 'POST', body: form, headers: { 'x-admin-token': getAdminToken() || '' } });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Import failed');
         status.className = 'status-msg success';
@@ -1929,7 +2113,7 @@
     }
 
     // ==================== INIT ====================
-    loadUsers();
+    checkAdminAuth();
   </script>
 </body>
 </html>

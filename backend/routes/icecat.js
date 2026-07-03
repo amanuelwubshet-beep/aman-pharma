@@ -1,7 +1,7 @@
 const express = require('express');
 const https = require('https');
 const { getDb, markDirty } = require('../db');
-const authMiddleware = require('../middleware/auth');
+const { adminRequired } = require('./auth');
 const router = express.Router();
 
 const ICECAT_API = 'live.icecat.biz';
@@ -89,7 +89,7 @@ router.get('/lookup', async (req, res) => {
   }
 });
 
-router.post('/sync-gtin', authMiddleware, async (req, res) => {
+router.post('/sync-gtin', adminRequired, async (req, res) => {
   const { ean } = req.body;
   if (!ean) return res.status(400).json({ error: 'EAN/GTIN required' });
   try {

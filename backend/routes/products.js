@@ -60,8 +60,8 @@ router.post('/', adminRequired, productUpload.single('image'), async (req, res) 
     db.run(`INSERT INTO products (name, category, icon, description, price, stock) VALUES (?, ?, ?, ?, ?, ?)`,
       [name, category, icon, description || '', price, stock]);
     markDirty();
-    const idResult = db.exec(`SELECT last_insert_rowid()`);
-    const id = idResult[0].values[0][0];
+    const idResult = db.exec(`SELECT MAX(id) FROM products`);
+    const id = idResult[0] && idResult[0].values[0] ? idResult[0].values[0][0] : 0;
     res.json({ message: 'Product created', id, icon });
   } catch (err) {
     console.error('Create product error:', err);

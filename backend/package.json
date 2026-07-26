@@ -24,6 +24,7 @@
     "express-rate-limit": "^8.5.2",
     "helmet": "^8.2.0",
     "multer": "^2.2.0",
+    "node-telegram-bot-api": "^1.1.2",
     "nodemailer": "^8.0.11",
     "sql.js": "^1.14.1",
     "uuid": "^14.0.0"

@@ -196,6 +196,8 @@
       background: linear-gradient(135deg, var(--green), var(--blue));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      border-bottom: 3px solid rgba(5, 150, 105, 0.3);
+      padding-bottom: 4px;
     }
 
     .hero p {
@@ -265,6 +267,10 @@
       font-weight: 800;
       margin-bottom: 16px;
       text-align: center;
+      border-bottom: 3px solid var(--border);
+      padding-bottom: 12px;
+      display: inline-block;
+      width: auto;
     }
 
     .section-title span {
@@ -570,82 +576,25 @@
       transform: translateY(0);
     }
 
-    /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
 
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background: var(--text-secondary);
-      transition: all 0.3s;
-      border-radius: 2px;
-    }
-
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-    .nav-overlay {
-      position: fixed;
-      top: 0; right: -300px;
-      width: 280px;
-      max-width: 80vw;
-      height: 100%;
-      background: var(--bg);
-      border-left: 1px solid var(--border);
-      box-shadow: -4px 0 24px rgba(0,0,0,0.1);
-      z-index: 99;
-      flex-direction: column;
-      padding: 80px 16px 24px;
-      gap: 2px;
-      transition: right 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .nav-overlay.open { right: 0; }
-    .nav-overlay a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      padding: 10px 14px;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-    .nav-overlay a:hover { background: var(--green-light); color: var(--green); }
-
-    .nav-backdrop {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      z-index: 98;
-      display: none;
-    }
-    .nav-backdrop.active { display: block; }
 
     /* Responsive */
     @media (max-width: 768px) {
       .navbar { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .hero h1 { font-size: 36px; }
+      .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+      .nav-links a { margin-left: 12px; font-size: 12px; }
+      .hero h1 { font-size: 42px; }
       .hero p { font-size: 16px; }
       .hero-badge { font-size: 11px; padding: 6px 16px; }
       section { padding: 50px 20px; }
       .about-content,
       .contact-wrapper { grid-template-columns: 1fr; gap: 40px; }
-      .cards-grid { grid-template-columns: 1fr; gap: 20px; }
-      .features-grid { grid-template-columns: 1fr; gap: 16px; }
-      .about-stats { grid-template-columns: 1fr; gap: 12px; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .hero-actions { flex-direction: column; align-items: center; width: 100%; }
       .hero-actions .btn { width: 100%; text-align: center; }
-      .section-title { font-size: 28px; }
+      .section-title { font-size: 30px; }
       .section-subtitle { font-size: 14px; margin-bottom: 40px; }
       .about-text h2 { font-size: 26px; }
       .contact-wrapper { padding: 30px 24px; }
@@ -664,17 +613,19 @@
       .bg-image { background-attachment: scroll; }
       .particles { display: none; }
       .navbar { padding: 8px 10px; }
+      .nav-links { gap: 4px; }
+      .nav-links a { margin-left: 8px; font-size: 11px; }
       .logo span { font-size: 14px; }
       .logo img { height: 24px; width: 24px; }
       .logo { gap: 6px; }
       .hero { padding: 60px 10px 24px; min-height: auto; }
-      .hero h1 { font-size: 20px; margin-bottom: 12px; }
+      .hero h1 { font-size: 26px; margin-bottom: 12px; }
       .hero p { font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
       .hero-badge { font-size: 8px; padding: 3px 10px; margin-bottom: 14px; }
       .hero-actions .btn { padding: 8px 16px; font-size: 11px; }
       .btn { padding: 8px 16px; font-size: 11px; }
       section { padding: 24px 10px; }
-      .section-title { font-size: 17px; margin-bottom: 8px; }
+      .section-title { font-size: 20px; margin-bottom: 8px; }
       .section-subtitle { font-size: 12px; margin-bottom: 20px; }
       .about-text h2 { font-size: 16px; }
       .about-content { gap: 16px; }
@@ -682,8 +633,10 @@
       .stat-card { padding: 10px 8px; border-radius: 8px; }
       .stat-number { font-size: 17px; }
       .stat-label { font-size: 10px; margin-top: 4px; }
-      .cards-grid { gap: 10px; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .card-3d { padding: 14px 12px; border-radius: 12px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       .card-3d h3 { font-size: 13px; margin-bottom: 6px; }
       .card-3d p { font-size: 11px; line-height: 1.4; }
       .card-icon { width: 34px; height: 34px; font-size: 15px; margin-bottom: 10px; border-radius: 10px; }
@@ -699,18 +652,22 @@
       .contact-form input, .contact-form textarea { padding: 8px 10px; font-size: 12px; margin-bottom: 10px; }
       .contact-form textarea { height: 80px; }
       footer { padding: 12px 10px; font-size: 9px; }
-      .about-stats { grid-template-columns: 1fr; }
       .video-card { border-radius: 10px !important; }
+      .about-content > .about-text,
+      .contact-wrapper > .contact-info,
+      .contact-wrapper > .contact-form { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow); }
+      section .section-title { display: block; text-align: center; }
     }
     @media (max-width: 360px) {
       .navbar { padding: 6px 8px; }
+      .nav-links a { margin-left: 6px; font-size: 10px; }
       .logo span { font-size: 12px; }
       .logo img { height: 20px; width: 20px; }
       .hero { padding: 50px 8px 20px; }
-      .hero h1 { font-size: 17px; }
+      .hero h1 { font-size: 22px; }
       .hero p { font-size: 12px; }
       section { padding: 20px 8px; }
-      .section-title { font-size: 15px; }
+      .section-title { font-size: 17px; }
       .card-3d { padding: 10px 8px; }
       .card-3d h3 { font-size: 12px; }
       .card-3d p { font-size: 10px; }
@@ -1292,7 +1249,7 @@
     /* Store responsive */
     @media (max-width: 768px) {
       .store-header h2 { font-size: 24px; }
-      .products-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
       .cart-sidebar { width: 100vw; }
       .login-modal { padding: 32px 24px; }
       .payment-modal .modal-content { padding: 28px 20px; }
@@ -1459,21 +1416,7 @@
       <a href="#contact">Contact</a>
       <a href="store.html" class="store-link">Store</a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
   </nav>
-  <div class="nav-backdrop" id="navBackdrop"></div>
-  <div class="nav-overlay" id="navOverlay">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#features">Why Us</a>
-    <a href="#contact">Contact</a>
-    <a href="store.html" class="store-link-mobile">Store</a>
-  </div>
 
   <!-- Hero -->
   <section class="hero" id="home">
@@ -1686,25 +1629,6 @@
       }, { threshold: 0.1 });
       obs.observe(r);
     });
-
-    // ==================== HAMBURGER ====================
-    const hamburger = document.getElementById('hamburger');
-    const navOverlay = document.getElementById('navOverlay');
-    const navBackdrop = document.getElementById('navBackdrop');
-    function closeNav() {
-      hamburger.classList.remove('active');
-      navOverlay.classList.remove('open');
-      navBackdrop.classList.remove('active');
-    }
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navOverlay.classList.toggle('open');
-      navBackdrop.classList.toggle('active');
-    });
-    navOverlay.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', closeNav);
-    });
-    navBackdrop.addEventListener('click', closeNav);
 
     // ==================== 3D TILT ====================
     document.querySelectorAll('[data-tilt]').forEach(card => {

@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/jpeg" href="assets/aammaann.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300..700&display=swap" rel="stylesheet">
   <title>Aman Pharma - Sign In</title>
   <style>
     @font-face {
@@ -411,7 +414,8 @@
           } else if (data.status === 'rejected') {
             clearInterval(approvalPollTimer);
             approvalPollTimer = null;
-            document.getElementById('statusIcon').textContent = '&#10060;';
+            showStep('stepMessage');
+            document.getElementById('statusIcon').textContent = '\u274C';
             document.getElementById('statusTitle').textContent = 'Account Rejected';
             document.getElementById('statusMessage').textContent = 'Your account has been rejected. Please contact support for more information.';
           }
@@ -437,8 +441,10 @@
     const fileInput = document.getElementById('efdaLicense');
     const fileUpload = document.getElementById('fileUpload');
     const fileName = document.getElementById('fileName');
+    let droppedFile = null;
 
     fileInput.addEventListener('change', () => {
+      droppedFile = null;
       if (fileInput.files.length) {
         fileUpload.classList.add('has-file');
         fileName.textContent = fileInput.files[0].name;
@@ -460,9 +466,9 @@
       e.preventDefault();
       fileUpload.classList.remove('dragover');
       if (e.dataTransfer.files.length) {
-        fileInput.files = e.dataTransfer.files;
+        droppedFile = e.dataTransfer.files[0];
         fileUpload.classList.add('has-file');
-        fileName.textContent = e.dataTransfer.files[0].name;
+        fileName.textContent = droppedFile.name;
       }
     });
 
@@ -501,7 +507,7 @@
           showStep('stepSignup');
         } else if (data.status === 'pending') {
           showStep('stepMessage');
-          document.getElementById('statusIcon').textContent = '&#9203;';
+          document.getElementById('statusIcon').textContent = '\u23F3';
           document.getElementById('statusTitle').textContent = 'Pending Approval';
           document.getElementById('statusMessage').textContent = 'Your account is pending admin approval. Please wait — we\'ll auto-detect when you\'re approved.';
           pendingEmail = email;
@@ -523,7 +529,7 @@
           }
         } else if (data.status === 'rejected') {
           showStep('stepMessage');
-          document.getElementById('statusIcon').textContent = '&#10060;';
+          document.getElementById('statusIcon').textContent = '\u274C';
           document.getElementById('statusTitle').textContent = 'Account Rejected';
           document.getElementById('statusMessage').textContent = 'Your account has been rejected. Please contact support for more information.';
         }
@@ -542,7 +548,7 @@
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      const file = fileInput.files[0];
+      const file = fileInput.files[0] || droppedFile;
       const btn = document.getElementById('signupBtn');
       const btnText = document.getElementById('signupBtnText');
       const btnSpinner = document.getElementById('signupBtnSpinner');
@@ -577,7 +583,7 @@
         }
 
         showStep('stepMessage');
-        document.getElementById('statusIcon').textContent = '&#9203;';
+        document.getElementById('statusIcon').textContent = '\u23F3';
         document.getElementById('statusTitle').textContent = 'Submitted for Approval';
         document.getElementById('statusMessage').textContent = 'Your sign-up request has been submitted. We\'ll auto-detect when an admin approves your account.';
         pendingEmail = email;

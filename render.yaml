@@ -5,7 +5,7 @@ services:
     region: oregon
     plan: free
     buildCommand: cd backend && npm install
-    startCommand: cd backend && node init-db.js && node server.js
+    startCommand: cd backend && node server.js
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION

@@ -25,7 +25,7 @@ app.use(helmet({
       scriptSrc: ["'self'", "'unsafe-inline'"],
       scriptSrcAttr: ["'self'", "'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "https:"],
+      imgSrc: ["'self'", "data:", "blob:", "https:"],
       fontSrc: ["'self'"],
       connectSrc: ["'self'", "https://openapi.telebirr.com"],
       frameSrc: ["'none'"],
@@ -80,6 +80,7 @@ app.use('/api/icecat', adminRequired, require('./routes/icecat'));
 app.use('/api/cnet', adminRequired, require('./routes/cnet'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/contact', require('./routes/contact'));
+app.use('/api/telegram', require('./routes/telegram'));
 
 app.post('/api/csp-violation', (req, res) => {
   console.warn('CSP Violation:', req.body ? JSON.stringify(req.body) : '(empty body)');
@@ -92,7 +93,7 @@ app.get('/api/health', (_req, res) => {
 
 let forceLogoutTimestamp = null;
 
-app.post('/api/auth/logout-all', async (_req, res) => {
+app.post('/api/auth/logout-all', adminRequired, async (_req, res) => {
   forceLogoutTimestamp = Date.now();
   console.log('Force logout all users at', new Date(forceLogoutTimestamp).toISOString());
   try {

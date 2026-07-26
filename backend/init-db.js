@@ -9,8 +9,8 @@ async function initDb() {
   console.log('=== Aman Pharma Database Initialization ===\n');
 
   if (fs.existsSync(DB_PATH)) {
-    console.log('Removing existing database...');
-    fs.unlinkSync(DB_PATH);
+    console.log('Database already exists, skipping init.');
+    return;
   }
 
   const SQL = await initSqlJs();

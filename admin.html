@@ -7,6 +7,9 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="icon" type="image/jpeg" href="assets/aammaann.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300..700&display=swap" rel="stylesheet">
   <title>Aman Pharma - Admin Panel</title>
   <style>
     @font-face {
@@ -47,6 +50,10 @@
       font-family: 'Vazirmatn', sans-serif;
       background: var(--bg);
       color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow-x: hidden;
       perspective: 1200px;
     }
@@ -196,6 +203,8 @@
       background: linear-gradient(135deg, var(--green), var(--blue));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      border-bottom: 3px solid rgba(5, 150, 105, 0.3);
+      padding-bottom: 4px;
     }
 
     .hero p {
@@ -265,6 +274,10 @@
       font-weight: 800;
       margin-bottom: 16px;
       text-align: center;
+      border-bottom: 3px solid var(--border);
+      padding-bottom: 12px;
+      display: inline-block;
+      width: auto;
     }
 
     .section-title span {
@@ -634,18 +647,18 @@
       .navbar { padding: 16px 20px; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .hero h1 { font-size: 36px; }
+      .hero h1 { font-size: 42px; }
       .hero p { font-size: 16px; }
       .hero-badge { font-size: 11px; padding: 6px 16px; }
       section { padding: 50px 20px; }
       .about-content,
       .contact-wrapper { grid-template-columns: 1fr; gap: 40px; }
-      .cards-grid { grid-template-columns: 1fr; gap: 20px; }
-      .features-grid { grid-template-columns: 1fr; gap: 16px; }
-      .about-stats { grid-template-columns: 1fr; gap: 12px; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .hero-actions { flex-direction: column; align-items: center; width: 100%; }
       .hero-actions .btn { width: 100%; text-align: center; }
-      .section-title { font-size: 28px; }
+      .section-title { font-size: 30px; }
       .section-subtitle { font-size: 14px; margin-bottom: 40px; }
       .about-text h2 { font-size: 26px; }
       .contact-wrapper { padding: 30px 24px; }
@@ -667,13 +680,13 @@
       .logo img { height: 24px; width: 24px; }
       .logo { gap: 6px; }
       .hero { padding: 60px 10px 24px; min-height: auto; }
-      .hero h1 { font-size: 20px; margin-bottom: 12px; }
+      .hero h1 { font-size: 26px; margin-bottom: 12px; }
       .hero p { font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
       .hero-badge { font-size: 8px; padding: 3px 10px; margin-bottom: 14px; }
       .hero-actions .btn { padding: 8px 16px; font-size: 11px; }
       .btn { padding: 8px 16px; font-size: 11px; }
       section { padding: 24px 10px; }
-      .section-title { font-size: 17px; margin-bottom: 8px; }
+      .section-title { font-size: 20px; margin-bottom: 8px; }
       .section-subtitle { font-size: 12px; margin-bottom: 20px; }
       .about-text h2 { font-size: 16px; }
       .about-content { gap: 16px; }
@@ -681,8 +694,10 @@
       .stat-card { padding: 10px 8px; border-radius: 8px; }
       .stat-number { font-size: 17px; }
       .stat-label { font-size: 10px; margin-top: 4px; }
-      .cards-grid { gap: 10px; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .card-3d { padding: 14px 12px; border-radius: 12px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       .card-3d h3 { font-size: 13px; margin-bottom: 6px; }
       .card-3d p { font-size: 11px; line-height: 1.4; }
       .card-icon { width: 34px; height: 34px; font-size: 15px; margin-bottom: 10px; border-radius: 10px; }
@@ -698,49 +713,82 @@
       .contact-form input, .contact-form textarea { padding: 8px 10px; font-size: 12px; margin-bottom: 10px; }
       .contact-form textarea { height: 80px; }
       footer { padding: 12px 10px; font-size: 9px; }
-      .about-stats { grid-template-columns: 1fr; }
       .video-card { border-radius: 10px !important; }
+      .about-content > .about-text,
+      .contact-wrapper > .contact-info,
+      .contact-wrapper > .contact-form { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow); }
+      section .section-title { display: block; text-align: center; }
     }
     @media (max-width: 360px) {
       .navbar { padding: 6px 8px; }
       .logo span { font-size: 12px; }
       .logo img { height: 20px; width: 20px; }
       .hero { padding: 50px 8px 20px; }
-      .hero h1 { font-size: 17px; }
+      .hero h1 { font-size: 22px; }
       .hero p { font-size: 12px; }
       section { padding: 20px 8px; }
-      .section-title { font-size: 15px; }
+      .section-title { font-size: 17px; }
       .card-3d { padding: 10px 8px; }
       .card-3d h3 { font-size: 12px; }
       .card-3d p { font-size: 10px; }
     }
-    /* Login Page */
-    .login-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 99999;
-      justify-content: center;
-      align-items: center;
-    }
-    .login-overlay.active { display: flex !important; }
-    .login-overlay .bg {
-      position: absolute; inset: 0;
-      background: var(--bg);
-    }
-    .login-overlay .login-card {
-      position: relative;
+    /* Login Card (same as signin page) */
+    .login-card {
+      display: block;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 40px 36px;
-      width: 380px;
-      max-width: 90vw;
-      text-align: center;
+      padding: 48px 40px;
+      width: 420px;
+      max-width: 92vw;
       box-shadow: var(--card-hover-shadow);
+      text-align: center;
     }
-    .login-card h2 { font-size: 22px; margin: 0 0 4px; color: var(--text); }
-    .login-card p { color: var(--text-secondary); font-size: 14px; margin: 0 0 24px; }
+    .login-card .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .login-card .logo img {
+      height: 40px;
+      width: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .login-card .logo span {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .login-card .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--green-light);
+      border: 1px solid rgba(5, 150, 105, 0.3);
+      border-radius: 50px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .login-card h2 { font-size: 22px; margin: 16px 0 4px; color: var(--text); }
+    .login-card .sub { color: var(--text-secondary); font-size: 14px; margin-bottom: 28px; }
+    .login-card label {
+      display: block;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+    .login-card label:first-of-type { margin-top: 0; }
     .login-card input {
       display: block;
       width: 100%;
@@ -752,7 +800,8 @@
       font-size: 15px;
       outline: none;
       box-sizing: border-box;
-      margin-bottom: 14px;
+      margin-bottom: 4px;
+      transition: border-color 0.3s;
     }
     .login-card input:focus { border-color: var(--green); }
     .login-card .login-btn {
@@ -766,34 +815,19 @@
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
+      margin-top: 24px;
+      transition: opacity 0.3s;
     }
-    .login-card .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .login-card .login-btn:hover { opacity: 0.85; }
+    .login-card .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .login-card .err {
       display: none;
       color: #ff6b6b;
       font-size: 13px;
-      margin-bottom: 12px;
-      padding: 8px 12px;
+      margin-top: 16px;
+      padding: 10px 14px;
       background: rgba(255,107,107,0.1);
       border-radius: 8px;
-    }
-    .login-card .close-btn {
-      position: absolute;
-      top: 12px; right: 16px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 22px;
-      cursor: pointer;
-    }
-    .login-card .brand {
-      font-size: 18px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--green), var(--blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
     }
 
     /* Store Section */
@@ -1291,7 +1325,7 @@
     /* Store responsive */
     @media (max-width: 768px) {
       .store-header h2 { font-size: 24px; }
-      .products-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
       .cart-sidebar { width: 100vw; }
       .login-modal { padding: 32px 24px; }
       .payment-modal .modal-content { padding: 28px 20px; }
@@ -1374,154 +1408,6 @@
     }
     .admin-toggle-btn:hover { background: var(--green-light); border-color: rgba(5,150,105,0.3); color: var(--green); }
 
-    /* Admin Login Box */
-    .admin-login-box {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 120px 20px 60px;
-    }
-    .admin-login-box .box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px 28px;
-      width: 340px;
-      max-width: 90vw;
-      box-shadow: var(--card-hover-shadow);
-    }
-    .admin-login-box .box label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-    }
-    .admin-login-box .box input {
-      display: block;
-      width: 100%;
-      padding: 12px 14px;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-      box-sizing: border-box;
-      margin-bottom: 14px;
-    }
-    .admin-login-box .box input:focus { border-color: var(--green); }
-    .admin-login-box .box .btn {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, var(--green), var(--blue));
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .admin-login-box .box .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .admin-login-box .box .btn:hover { opacity: 0.85; }
-    .admin-login-box .box .err {
-      display: none;
-      color: #ff6b6b;
-      font-size: 13px;
-      margin-bottom: 12px;
-      padding: 8px 12px;
-      background: rgba(255,107,107,0.1);
-      border-radius: 8px;
-    }
-
-    /* Admin login overlay (shown/hidden via JS) */
-    .admin-login-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 99999;
-      justify-content: center;
-      align-items: center;
-    }
-    .admin-login-overlay.active { display: flex !important; }
-    .admin-login-overlay .bg {
-      position: absolute; inset: 0;
-      background: var(--bg);
-    }
-    .admin-login-overlay .login-card {
-      position: relative;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 40px 36px;
-      width: 380px;
-      max-width: 90vw;
-      text-align: center;
-      box-shadow: var(--card-hover-shadow);
-    }
-    .admin-login-overlay .login-card h2 { font-size: 22px; margin: 0 0 4px; color: var(--text); }
-    .admin-login-overlay .login-card p { color: var(--text-secondary); font-size: 14px; margin: 0 0 24px; }
-    .admin-login-overlay .login-card input {
-      display: block;
-      width: 100%;
-      padding: 14px 16px;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 15px;
-      outline: none;
-      box-sizing: border-box;
-      margin-bottom: 14px;
-    }
-    .admin-login-overlay .login-card input:focus { border-color: var(--green); }
-    .admin-login-overlay .login-card .login-btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, var(--green), var(--blue));
-      border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .admin-login-overlay .login-card .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .admin-login-overlay .login-card .login-btn:hover { opacity: 0.85; }
-    .admin-login-overlay .login-card .err {
-      display: none;
-      color: #ff6b6b;
-      font-size: 13px;
-      margin-bottom: 12px;
-      padding: 8px 12px;
-      background: rgba(255,107,107,0.1);
-      border-radius: 8px;
-    }
-    .admin-login-overlay .login-card .brand {
-      font-size: 18px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--green), var(--blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
-    }
-    .admin-login-overlay .login-card .admin-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      background: var(--green-light);
-      border: 1px solid rgba(5, 150, 105, 0.3);
-      border-radius: 50px;
-      color: var(--green);
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
-    }
-
     /* Admin responsive */
     @media (max-width: 768px) {
       .store-header { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -1535,9 +1421,12 @@
       .orders-table { font-size: 12px; }
       .orders-table th, .orders-table td { padding: 8px 8px; }
       section.store-section { padding: 100px 16px 40px; }
+      .login-card { padding: 36px 28px; width: 100%; max-width: 94vw; }
+      .login-card .logo span { font-size: 20px; }
+      .login-card h2 { font-size: 20px; }
     }
     @media (max-width: 480px) {
-      .store-header h2 { font-size: 15px; }
+      .store-header h2 { font-size: 20px; }
       section.store-section { padding: 60px 6px 20px; }
       .admin-panel { margin-top: 12px; }
       .admin-form { padding: 10px; border-radius: 8px; }
@@ -1551,9 +1440,13 @@
       .orders-table th, .orders-table td { padding: 3px 3px; }
       .orders-table { overflow-x: auto; display: block; }
       .btn-approve, .btn-reject { padding: 2px 6px; font-size: 8px; }
-      .admin-login-overlay .login-card { padding: 24px 20px; }
-      .admin-login-overlay .login-card h2 { font-size: 17px; }
-      .admin-login-overlay .login-card input { padding: 10px 12px; font-size: 13px; }
+      .login-card { padding: 28px 20px; border-radius: 18px; }
+      .login-card .sub { font-size: 13px; margin-bottom: 20px; }
+      .login-card h2 { font-size: 18px; }
+      .login-card .logo span { font-size: 18px; }
+      .login-card .logo img { height: 34px; width: 34px; }
+      .login-card input { padding: 12px 14px; font-size: 14px; }
+      .login-card .login-btn { padding: 12px; font-size: 14px; margin-top: 20px; }
     }
     @media (max-width: 360px) {
       .admin-tabs button { font-size: 8px; padding: 3px 6px; }
@@ -1563,6 +1456,12 @@
       section.store-section { padding: 55px 4px 16px; }
     }
     .admin-form { overflow-x: auto; }
+    .orders-table .tag { display:inline-block;padding:2px 8px;border-radius:50px;font-size:10px;font-weight:600; }
+    .orders-table .tag.pharma { background:var(--green-light);color:var(--green); }
+    .orders-table .tag.surgical { background:var(--blue-light);color:var(--blue); }
+    .orders-table .tag.equipment { background:rgba(123,47,247,0.1);color:#7b2ff7; }
+    .orders-table .tag.consumable { background:rgba(255,159,67,0.1);color:#ff9f43; }
+    .orders-table .tag.general { background:var(--bg-alt);color:var(--text-muted); }
     /* === SPEED BOOST === */
     h1, h2, .hero-badge, .hero p, .hero-actions, .section-title, .stat-number, .navbar { animation-duration: 0.35s !important; }
     .card-3d, .feature-item, .stat-card, .product-card { will-change: transform, opacity; }
@@ -1594,19 +1493,18 @@
     <a href="store.html">Store</a>
   </div>
 
-  <!-- Admin Login Overlay -->
-  <div class="admin-login-overlay active" id="adminLoginOverlay">
-    <div class="bg"></div>
-    <div class="login-card">
-      <div class="brand">Aman Pharma</div>
-      <div class="admin-badge">Admin Panel</div>
-      <h2>Admin Login</h2>
-      <p>Enter your credentials to access the admin panel.</p>
-      <div class="err" id="adminLoginErr"></div>
-      <input type="text" id="adminUsername" placeholder="Username" autocomplete="username">
-      <input type="password" id="adminPassword" placeholder="Password" autocomplete="current-password">
-      <button class="login-btn" id="adminLoginBtn" onclick="adminLogin()">Sign In</button>
-    </div>
+  <!-- Admin Login Card -->
+  <div class="login-card" id="adminLoginCard">
+    <div class="logo"><img src="assets/aammaann.jpg" alt="Aman Pharma"><span>Aman Pharma</span></div>
+    <div class="badge">Admin Panel</div>
+    <h2>Admin Login</h2>
+    <p class="sub">Enter your credentials to access the admin panel.</p>
+    <div class="err" id="adminLoginErr"></div>
+    <label for="adminUsername">Username</label>
+    <input type="text" id="adminUsername" placeholder="Enter your username" autocomplete="username">
+    <label for="adminPassword">Password</label>
+    <input type="password" id="adminPassword" placeholder="Enter your password" autocomplete="current-password">
+    <button class="login-btn" id="adminLoginBtn" onclick="adminLogin()">Sign In</button>
   </div>
 
   <!-- Admin Section -->
@@ -1628,6 +1526,7 @@
         <button data-tab="orders" onclick="switchAdminTab('orders')">Orders</button>
         <button data-tab="cnet" onclick="switchAdminTab('cnet')">Sync from CNET</button>
         <button data-tab="commissions" onclick="switchAdminTab('commissions')">Commissions</button>
+        <button data-tab="telegram" onclick="switchAdminTab('telegram')">Telegram Products</button>
       </div>
 
       <!-- Users -->
@@ -1651,10 +1550,10 @@
         </div>
         <div class="admin-form" style="margin-top:24px">
           <h3>Or Import from CSV</h3>
-          <p style="color:var(--text-secondary);font-size:14px;margin-bottom:12px">Upload a CSV file exported from your CNET system.</p>
-          <p style="color:var(--text-muted);font-size:12px;margin-bottom:12px">Expected columns: Name, Price, Stock, Category, Description, SKU (only Name and Price required)</p>
-          <input type="file" id="csvFileInput" accept=".csv" style="margin-bottom:12px">
-          <button class="btn-primary" id="csvImportBtn" onclick="importCsv()" style="margin-top:0">Upload & Import</button>
+          <p style="color:var(--text-secondary);font-size:14px;margin-bottom:12px">Upload a CSV file to import products into the store.</p>
+          <p style="color:var(--text-muted);font-size:12px;margin-bottom:12px">Required columns: <strong>Name</strong>, <strong>Price</strong>. Optional: Stock, Category, Description. Also accepts: Product Name, Unit Price, Quantity, Type, Short Description, Long Description, Item Name, Current Stock.</p>
+          <input type="file" id="csvFileInput" accept=".csv,text/csv,application/vnd.ms-excel" style="margin-bottom:12px" onchange="validateCsvFile(this)">
+          <button class="btn-primary" id="csvImportBtn" onclick="importCsv()" style="margin-top:0">Upload &amp; Import</button>
           <div class="status-msg" id="csvStatus"></div>
         </div>
       </div>
@@ -1723,6 +1622,37 @@
           <div id="commissionsList"><p style="color:var(--text-muted)">Loading...</p></div>
         </div>
       </div>
+
+      <!-- Telegram Products -->
+      <div class="panel-section" id="tabTelegram">
+        <div class="admin-form" style="max-width:100%;overflow-x:auto">
+          <h3>Telegram Bot Setup</h3>
+          <p style="color:var(--text-secondary);font-size:14px;margin-bottom:16px">
+            Configure a Telegram bot to monitor a channel for new product arrivals. When a product is posted, it will appear below for review.
+          </p>
+          <div id="telegramStatus" style="margin-bottom:16px;padding:12px 16px;border-radius:10px;background:var(--bg-alt);border:1px solid var(--border)">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <span id="telegramBotIndicator" style="color:var(--text-muted);font-size:13px">&#9899; Bot not running</span>
+              <span id="telegramChannelDisplay" style="color:var(--text-muted);font-size:12px"></span>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+            <input type="text" id="telegramBotToken" placeholder="Bot token from @BotFather" style="flex:2;min-width:200px;padding:10px 14px;border-radius:10px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none">
+            <input type="text" id="telegramChannelId" placeholder="Channel ID (e.g. @channel or -100...)" style="flex:1;min-width:150px;padding:10px 14px;border-radius:10px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none">
+            <button class="btn-primary" id="telegramStartBtn" onclick="telegramStartBot()" style="margin-top:0;white-space:nowrap">&#9654; Start Bot</button>
+            <button class="btn-reject" id="telegramStopBtn" onclick="telegramStopBot()" style="margin-top:0;white-space:nowrap">&#9632; Stop Bot</button>
+          </div>
+          <div class="status-msg" id="telegramActionStatus"></div>
+        </div>
+
+        <div class="admin-form" style="max-width:100%;overflow-x:auto;margin-top:20px">
+          <h3>Pending Products from Telegram</h3>
+          <div style="display:flex;gap:8px;margin-bottom:16px">
+            <button class="btn-primary" onclick="telegramRefreshPending()" style="margin-top:0;padding:8px 20px;font-size:13px">&#8635; Refresh</button>
+          </div>
+          <div id="telegramPendingList"><p style="color:var(--text-muted)">No pending products. Start the bot and post products in your channel.</p></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1785,7 +1715,9 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Login failed');
         setAdminToken(data.token);
-        document.getElementById('adminLoginOverlay').classList.remove('active');
+        document.getElementById('adminLoginCard').style.display = 'none';
+        document.querySelector('.navbar').style.display = '';
+        document.querySelector('footer').style.display = '';
         document.getElementById('storeSection').style.display = 'block';
         document.getElementById('adminLogoutBtn').style.display = 'inline-block';
         loadUsers();
@@ -1804,7 +1736,9 @@
       setAdminToken(null);
       document.getElementById('storeSection').style.display = 'none';
       document.getElementById('adminLogoutBtn').style.display = 'none';
-      document.getElementById('adminLoginOverlay').classList.add('active');
+      document.getElementById('adminLoginCard').style.display = '';
+      document.querySelector('.navbar').style.display = 'none';
+      document.querySelector('footer').style.display = 'none';
       document.getElementById('adminUsername').value = '';
       document.getElementById('adminPassword').value = '';
     }
@@ -1812,7 +1746,9 @@
     async function checkAdminAuth() {
       const token = getAdminToken();
       if (!token) {
-        document.getElementById('adminLoginOverlay').classList.add('active');
+        document.getElementById('adminLoginCard').style.display = '';
+        document.querySelector('.navbar').style.display = 'none';
+        document.querySelector('footer').style.display = 'none';
         document.getElementById('storeSection').style.display = 'none';
         return;
       }
@@ -1823,20 +1759,29 @@
         });
         const data = await res.json();
         if (data.valid) {
-          document.getElementById('adminLoginOverlay').classList.remove('active');
+          document.getElementById('adminLoginCard').style.display = 'none';
+          document.querySelector('.navbar').style.display = '';
+          document.querySelector('footer').style.display = '';
           document.getElementById('storeSection').style.display = 'block';
           document.getElementById('adminLogoutBtn').style.display = 'inline-block';
         } else {
           setAdminToken(null);
-          document.getElementById('adminLoginOverlay').classList.add('active');
+          document.getElementById('adminLoginCard').style.display = '';
+          document.querySelector('.navbar').style.display = 'none';
+          document.querySelector('footer').style.display = 'none';
           document.getElementById('storeSection').style.display = 'none';
         }
       } catch (_) {
-        document.getElementById('adminLoginOverlay').classList.add('active');
+        document.getElementById('adminLoginCard').style.display = '';
+        document.querySelector('.navbar').style.display = 'none';
+        document.querySelector('footer').style.display = 'none';
         document.getElementById('storeSection').style.display = 'none';
       }
     }
 
+    document.getElementById('adminUsername').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') adminLogin();
+    });
     document.getElementById('adminPassword').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') adminLogin();
     });
@@ -1862,6 +1807,8 @@
       document.getElementById(tabId).classList.add('active');
       if (tab === 'orders') loadOrders();
       if (tab === 'users') loadUsers();
+      if (tab === 'telegram') { telegramRefreshStatus(); telegramRefreshPending(); }
+      if (tab === 'commissions') loadCommissions();
     }
 
     async function importFromIcecat() {
@@ -1886,7 +1833,7 @@
     async function addProduct() {
       const name = document.getElementById('addName').value.trim();
       const category = document.getElementById('addCategory').value;
-      const price = parseInt(document.getElementById('addPrice').value);
+      const price = parseFloat(document.getElementById('addPrice').value);
       const stock = parseInt(document.getElementById('addStock').value) || 50;
       const imageInput = document.getElementById('addImage');
       const description = document.getElementById('addDesc').value.trim();
@@ -1909,7 +1856,8 @@
         status.className = 'status-msg success';
         status.textContent = 'Added "' + name + '" to store';
         document.getElementById('addName').value = ''; document.getElementById('addPrice').value = '';
-        document.getElementById('addDesc').value = ''; imageInput.value = '';
+        document.getElementById('addDesc').value = ''; document.getElementById('addStock').value = '50';
+        imageInput.value = '';
         document.getElementById('addImagePreview').style.display = 'none';
       } catch (e) {
         status.className = 'status-msg error';
@@ -1934,26 +1882,71 @@
       btn.disabled = false; btn.textContent = 'Sync Now';
     }
 
+    function validateCsvFile(input) {
+      const status = document.getElementById('csvStatus');
+      if (!input.files.length) return;
+      const file = input.files[0];
+      const ext = file.name.split('.').pop().toLowerCase();
+      if (ext !== 'csv') {
+        status.className = 'status-msg error';
+        status.textContent = 'Please select a .csv file';
+        input.value = '';
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        status.className = 'status-msg error';
+        status.textContent = 'File too large. Maximum size is 5 MB (' + (file.size / 1024 / 1024).toFixed(1) + ' MB selected)';
+        input.value = '';
+        return;
+      }
+      if (file.size === 0) {
+        status.className = 'status-msg error';
+        status.textContent = 'File is empty';
+        input.value = '';
+        return;
+      }
+      status.className = 'status-msg';
+      status.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB) ready to import';
+    }
+
     async function importCsv() {
       const fileInput = document.getElementById('csvFileInput');
       const status = document.getElementById('csvStatus');
       const btn = document.getElementById('csvImportBtn');
       if (!fileInput.files.length) { status.className = 'status-msg error'; status.textContent = 'Please select a CSV file'; return; }
+      const file = fileInput.files[0];
+      const ext = file.name.split('.').pop().toLowerCase();
+      if (ext !== 'csv') { status.className = 'status-msg error'; status.textContent = 'Only .csv files are allowed'; return; }
+      if (file.size > 5 * 1024 * 1024) { status.className = 'status-msg error'; status.textContent = 'File too large. Maximum size is 5 MB'; return; }
+      if (file.size === 0) { status.className = 'status-msg error'; status.textContent = 'File is empty'; return; }
       btn.disabled = true; btn.textContent = 'Importing...';
-      status.className = 'status-msg'; status.textContent = 'Uploading...';
+      status.className = 'status-msg'; status.textContent = 'Uploading ' + file.name + '...';
       status.scrollIntoView({ behavior: 'smooth', block: 'center' });
       try {
         const form = new FormData();
-        form.append('file', fileInput.files[0]);
-        const res = await fetch('/api/cnet/import-csv', { method: 'POST', body: form, headers: { 'x-admin-token': getAdminToken() || '' } });
+        form.append('file', file, file.name);
+        const headers = {};
+        const token = getAdminToken();
+        if (token) headers['x-admin-token'] = token;
+        const res = await fetch('/api/cnet/import-csv', { method: 'POST', body: form, headers });
+        if (!res.ok) {
+          let errMsg = 'Import failed (HTTP ' + res.status + ')';
+          try {
+            const text = await res.text();
+            try { const d = JSON.parse(text); errMsg = d.error || errMsg; } catch { errMsg = text || errMsg; }
+          } catch {}
+          throw new Error(errMsg);
+        }
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Import failed');
         status.className = 'status-msg success';
         status.textContent = data.message || 'Import complete';
+        if (data.skipped > 0) {
+          status.textContent += ' \u26A0 ' + data.skipped + ' row' + (data.skipped !== 1 ? 's' : '') + ' skipped (missing name/invalid data)';
+        }
         fileInput.value = '';
       } catch (e) {
         status.className = 'status-msg error';
-        status.textContent = e.message || 'Network error — check console';
+        status.textContent = e.message || 'Network error. Please check your connection and try again.';
         console.error('CSV import error:', e);
       }
       btn.disabled = false; btn.textContent = 'Upload & Import';
@@ -2086,6 +2079,127 @@
         btn.textContent = isApprove ? 'Approve' : 'Reject';
       }
     });
+
+    // ==================== TELEGRAM BOT ====================
+    async function telegramStartBot() {
+      const token = document.getElementById('telegramBotToken').value.trim();
+      const channelId = document.getElementById('telegramChannelId').value.trim();
+      const status = document.getElementById('telegramActionStatus');
+      const btn = document.getElementById('telegramStartBtn');
+      if (!token) { status.className = 'status-msg error'; status.textContent = 'Please enter a bot token'; return; }
+      btn.disabled = true; btn.textContent = 'Starting...';
+      status.className = 'status-msg'; status.textContent = '';
+      try {
+        const data = await apiFetch('/telegram/start', { method: 'POST', body: JSON.stringify({ token, channelId: channelId || null }) });
+        status.className = 'status-msg success';
+        status.textContent = data.message;
+        telegramRefreshStatus();
+      } catch (e) {
+        status.className = 'status-msg error';
+        status.textContent = e.message;
+      }
+      btn.disabled = false; btn.textContent = 'Start Bot';
+    }
+
+    async function telegramStopBot() {
+      const status = document.getElementById('telegramActionStatus');
+      const btn = document.getElementById('telegramStopBtn');
+      btn.disabled = true; btn.textContent = 'Stopping...';
+      try {
+        const data = await apiFetch('/telegram/stop', { method: 'POST' });
+        status.className = 'status-msg success';
+        status.textContent = data.message;
+        telegramRefreshStatus();
+      } catch (e) {
+        status.className = 'status-msg error';
+        status.textContent = e.message;
+      }
+      btn.disabled = false; btn.textContent = 'Stop Bot';
+    }
+
+    async function telegramRefreshStatus() {
+      const indicator = document.getElementById('telegramBotIndicator');
+      const channelDisplay = document.getElementById('telegramChannelDisplay');
+      try {
+        const data = await apiFetch('/telegram/status');
+        if (data.running) {
+          indicator.innerHTML = '&#128994; Bot running';
+          indicator.style.color = 'var(--green)';
+          channelDisplay.textContent = data.channelId ? 'Channel: ' + data.channelId : 'Monitoring all messages';
+        } else {
+          indicator.innerHTML = '&#128308; Bot not running';
+          indicator.style.color = 'var(--text-muted)';
+          channelDisplay.textContent = '';
+        }
+      } catch (_) {}
+    }
+
+    async function telegramRefreshPending() {
+      const container = document.getElementById('telegramPendingList');
+      container.innerHTML = '<p style="color:var(--text-muted)">Loading...</p>';
+      try {
+        const products = await apiFetch('/telegram/pending');
+        if (!products.length) {
+          container.innerHTML = '<p style="color:var(--text-muted)">No pending products. Start the bot and post products in your channel.</p>';
+          return;
+        }
+        container.innerHTML = `
+          <table class="orders-table">
+            <thead><tr>
+              <th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Description</th><th>Source</th><th>Date</th><th>Action</th>
+            </tr></thead>
+            <tbody>
+              ${products.map(p => {
+                const date = p.created_at ? new Date(p.created_at).toLocaleDateString() : '-';
+                const desc = (p.description || '').length > 60 ? esc(p.description).slice(0, 60) + '...' : esc(p.description || '-');
+                const sourcePreview = p.source_text ? esc(p.source_text.slice(0, 50)) + (p.source_text.length > 50 ? '...' : '') : '-';
+                return '<tr>' +
+                  '<td><strong>' + esc(p.name) + '</strong></td>' +
+                  '<td><span class="tag ' + esc(p.category) + '">' + esc(p.category) + '</span></td>' +
+                  '<td>ETB ' + (p.price || 0).toLocaleString() + '</td>' +
+                  '<td>' + (p.stock || 0) + '</td>' +
+                  '<td style="max-width:150px;font-size:12px;color:var(--text-secondary)">' + desc + '</td>' +
+                  '<td style="font-size:11px;color:var(--text-muted);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + esc(p.source_text || '') + '">' + sourcePreview + '</td>' +
+                  '<td style="font-size:12px">' + date + '</td>' +
+                  '<td style="white-space:nowrap">' +
+                    '<button class="btn-approve" onclick="telegramApprove(' + p.id + ', this)">Approve</button> ' +
+                    '<button class="btn-reject" onclick="telegramReject(' + p.id + ', this)">Reject</button>' +
+                  '</td>' +
+                '</tr>';
+              }).join('')}
+            </tbody>
+          </table>`;
+      } catch (e) {
+        container.innerHTML = '<p style="color:#ff4d4d">Failed to load: ' + esc(e.message) + '</p>';
+      }
+    }
+
+    async function telegramApprove(id, btn) {
+      btn.disabled = true; btn.textContent = 'Adding...';
+      try {
+        const data = await apiFetch('/telegram/approve/' + id, { method: 'POST' });
+        if (data.success) {
+          btn.textContent = '✓ Added';
+          btn.style.background = 'var(--green)';
+          telegramRefreshPending();
+        }
+      } catch (e) {
+        btn.disabled = false; btn.textContent = 'Approve';
+        alert('Failed: ' + e.message);
+      }
+    }
+
+    async function telegramReject(id, btn) {
+      if (!confirm('Reject this product?')) return;
+      btn.disabled = true; btn.textContent = 'Rejecting...';
+      try {
+        await apiFetch('/telegram/reject/' + id, { method: 'POST' });
+        telegramRefreshPending();
+      } catch (e) {
+        btn.disabled = false; btn.textContent = 'Reject';
+        alert('Failed: ' + e.message);
+      }
+    }
 
     // ==================== HAMBURGER ====================
     const hamburger = document.getElementById('hamburger');

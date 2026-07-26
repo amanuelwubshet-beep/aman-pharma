@@ -1527,6 +1527,7 @@
         <button data-tab="cnet" onclick="switchAdminTab('cnet')">Sync from CNET</button>
         <button data-tab="commissions" onclick="switchAdminTab('commissions')">Commissions</button>
         <button data-tab="telegram" onclick="switchAdminTab('telegram')">Telegram Products</button>
+        <button data-tab="products" onclick="switchAdminTab('products')">Products</button>
       </div>
 
       <!-- Users -->
@@ -1604,6 +1605,18 @@
           <textarea id="addDesc" placeholder="Product description..."></textarea>
           <button class="btn-primary" id="addBtn" onclick="addProduct()">Add Product</button>
           <div class="status-msg" id="addStatus"></div>
+        </div>
+      </div>
+
+      <!-- Products -->
+      <div class="panel-section" id="tabProducts">
+        <div class="admin-form" style="max-width:100%;overflow-x:auto">
+          <h3>All Products</h3>
+          <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+            <input type="text" id="productSearchInput" placeholder="Search products..." oninput="filterManageProducts()" style="flex:1;min-width:200px;padding:10px 14px;border-radius:10px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none">
+            <button class="btn-primary" onclick="loadManageProducts()" style="padding:10px 20px;font-size:13px">&#8635; Refresh</button>
+          </div>
+          <div id="productsList"><p style="color:var(--text-muted)">Loading products...</p></div>
         </div>
       </div>
 
@@ -1809,6 +1822,7 @@
       if (tab === 'users') loadUsers();
       if (tab === 'telegram') { telegramRefreshStatus(); telegramRefreshPending(); }
       if (tab === 'commissions') loadCommissions();
+      if (tab === 'products') loadManageProducts();
     }
 
     async function importFromIcecat() {
@@ -1864,6 +1878,67 @@
         status.textContent = e.message;
       }
       btn.disabled = false; btn.textContent = 'Add Product';
+    }
+
+    let allManageProducts = [];
+
+    async function loadManageProducts() {
+      const container = document.getElementById('productsList');
+      container.innerHTML = '<p style="color:var(--text-muted)">Loading products...</p>';
+      try {
+        const token = getAdminToken();
+        const res = await fetch(API + '/products', { headers: { 'x-admin-token': token || '' } });
+        if (!res.ok) throw new Error('Failed to load products');
+        allManageProducts = await res.json();
+        renderManageProducts(allManageProducts);
+      } catch (e) {
+        container.innerHTML = '<p style="color:#ff4d4d">Error: ' + esc(e.message) + '</p>';
+      }
+    }
+
+    function filterManageProducts() {
+      const q = document.getElementById('productSearchInput').value.toLowerCase();
+      const filtered = allManageProducts.filter(p =>
+        p.name.toLowerCase().includes(q) || (p.category || '').toLowerCase().includes(q)
+      );
+      renderManageProducts(filtered);
+    }
+
+    function renderManageProducts(list) {
+      const container = document.getElementById('productsList');
+      if (!list.length) {
+        container.innerHTML = '<p style="color:var(--text-muted)">No products found.</p>';
+        return;
+      }
+      container.innerHTML = '<table class="orders-table"><thead><tr><th>ID</th><th>Icon</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody>' +
+        list.map(p => '<tr>' +
+          '<td>' + p.id + '</td>' +
+          '<td style="font-size:20px">' + (p.icon && (p.icon.startsWith('http') || p.icon.startsWith('/uploads/'))
+            ? '<img src="' + esc(p.icon) + '" style="width:32px;height:32px;border-radius:6px;object-fit:cover">'
+            : esc(p.icon || '📦')) + '</td>' +
+          '<td><strong>' + esc(p.name) + '</strong></td>' +
+          '<td><span class="tag ' + esc(p.category) + '">' + esc(p.category) + '</span></td>' +
+          '<td>' + Number(p.price).toLocaleString() + ' ETB</td>' +
+          '<td style="color:' + (p.stock > 10 ? 'var(--green)' : p.stock > 0 ? '#f59e0b' : '#ef4444') + ';font-weight:600">' + p.stock + '</td>' +
+          '<td><button class="btn-reject" onclick="deleteProduct(' + p.id + ', \'' + esc(p.name).replace(/'/g, "\\'") + '\')" style="padding:4px 12px;font-size:11px">Delete</button></td>' +
+        '</tr>').join('') +
+        '</tbody></table>';
+    }
+
+    async function deleteProduct(id, name) {
+      if (!confirm('Delete "' + name + '"? This cannot be undone.')) return;
+      try {
+        const token = getAdminToken();
+        const res = await fetch(API + '/products/' + id, {
+          method: 'DELETE',
+          headers: { 'x-admin-token': token || '' }
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Delete failed');
+        loadManageProducts();
+      } catch (e) {
+        alert('Failed to delete: ' + e.message);
+      }
     }
 
     async function syncFromCnet() {

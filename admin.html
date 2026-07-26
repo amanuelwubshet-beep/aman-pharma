@@ -1777,6 +1777,7 @@
           document.querySelector('footer').style.display = '';
           document.getElementById('storeSection').style.display = 'block';
           document.getElementById('adminLogoutBtn').style.display = 'inline-block';
+          loadUsers();
         } else {
           setAdminToken(null);
           document.getElementById('adminLoginCard').style.display = '';

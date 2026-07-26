@@ -2069,7 +2069,7 @@
         addToCart(Number(card.dataset.pid));
       }
     });
-    document.getElementById('cartContent').addEventListener('click', (e) => {
+    document.getElementById('cartItems').addEventListener('click', (e) => {
       const item = e.target.closest('.cart-item');
       if (!item) return;
       const id = Number(item.dataset.cid);
